@@ -1,0 +1,243 @@
+<%- include('partials/header') %>
+
+    <div class="container" style="max-width: 600px; margin-top: 4rem;">
+        <div class="card">
+            <h2 class="text-center mb-1">Confirm Booking</h2>
+
+            <div class="mb-1">
+                <p><strong>Host:</strong>
+                    <%= host.name %>
+                </p>
+                <p><strong>Session Time:</strong>
+                    <%= start %>
+                </p>
+                <p><strong>Duration:</strong>
+                    <%= duration %> Minutes
+                </p>
+
+                <% if (!isFree) { %>
+                    <div class="currency-selection mt-2 mb-2">
+                        <style>
+                            .currency-card {
+                                border: 2px solid #e5e7eb;
+                                border-radius: 8px;
+                                padding: 1rem;
+                                cursor: pointer;
+                                transition: all 0.2s;
+                                flex: 1;
+                                text-align: center;
+                            }
+
+                            .currency-card:hover {
+                                border-color: #93c5fd;
+                            }
+
+                            .currency-card.selected-currency {
+                                border-color: #2563eb;
+                                background-color: #eff6ff;
+                                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+                            }
+
+                            .check-icon {
+                                display: none;
+                                margin-left: auto;
+                                color: #2563eb;
+                            }
+
+                            .selected-currency .check-icon {
+                                display: inline;
+                            }
+
+                            .row-flex {
+                                display: flex;
+                                gap: 1rem;
+                            }
+                        </style>
+
+                        <p><strong>Select Currency:</strong></p>
+                        <div class="row-flex">
+                            <div id="card-INR" class="currency-card selected-currency" onclick="selectCurrency('INR')">
+                                <h3 style="margin: 0; color: #1e293b;">₹<%= amount.toFixed(2) %>
+                                </h3>
+                                <small class="text-secondary">Pay in INR</small>
+                            </div>
+                            <div id="card-USD" class="currency-card" onclick="selectCurrency('USD')">
+                                <h3 style="margin: 0; color: #1e293b;">$<%= amountUsd.toFixed(2) %>
+                                </h3>
+                                <small class="text-secondary">Pay in USD</small>
+                            </div>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <p><strong>Amount:</strong> FREE</p>
+                        <% } %>
+            </div>
+
+            <% if (!isFree) { %>
+                <div class="gateway-selection mt-2 mb-2">
+                    <p><strong>Select Payment Gateway:</strong></p>
+                    <div class="form-group">
+                        <input type="radio" id="razorpay" name="gateway" value="razorpay" checked
+                            onchange="updateButtonText()">
+                        <label for="razorpay">Razorpay</label>
+
+                        <input type="radio" id="payu" name="gateway" value="payu" onchange="updateButtonText()">
+                        <label for="payu">PayU</label>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+
+        <button id="rzp-button1" class="btn btn-primary" style="width: 100%;">Pay & Book</button>
+    </div>
+    </div>
+
+    <script>
+        let selectedCurrency = 'INR';
+
+        function selectCurrency(currency) {
+            selectedCurrency = currency;
+            document.querySelectorAll('.currency-card').forEach(el => el.classList.remove('selected-currency'));
+            document.getElementById('card-' + currency).classList.add('selected-currency');
+        }
+
+        function updateButtonText() {
+            const gateway = document.querySelector('input[name="gateway"]:checked')?.value;
+            const btn = document.getElementById('rzp-button1');
+            if (gateway === 'payu') {
+                btn.innerText = 'Pay with PayU';
+            } else {
+                btn.innerText = 'Pay & Book';
+            }
+        }
+
+        document.getElementById('rzp-button1').onclick = async function (e) {
+            e.preventDefault();
+
+            const btn = document.getElementById('rzp-button1');
+            const originalText = btn.innerText;
+            const gateway = document.querySelector('input[name="gateway"]:checked')?.value || 'razorpay';
+
+            btn.innerText = 'Creating Booking...';
+            btn.disabled = true;
+
+            try {
+                if (gateway === 'payu') {
+                    // --- PAYU FLOW ---
+                    const res = await fetch('/bookings/create-payu-order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            hostId: '<%= host._id %>',
+                            startTime: '<%= startTime %>',
+                            endTime: '<%= endTime %>',
+                            currency: selectedCurrency
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    if (data.error) {
+                        alert(data.error);
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        return;
+                    }
+
+                    if (data.success && data.action) {
+                        // Create hidden form and submit
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = data.action;
+
+                        for (const key in data.params) {
+                            const input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = key;
+                            input.value = data.params[key];
+                            form.appendChild(input);
+                        }
+
+                        document.body.appendChild(form);
+                        form.submit();
+                        return; // Done
+                    }
+
+                } else {
+                    // --- RAZORPAY FLOW ---
+                    const res = await fetch('/bookings/create-order', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            hostId: '<%= host._id %>',
+                            startTime: '<%= startTime %>',
+                            endTime: '<%= endTime %>',
+                            currency: selectedCurrency
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    if (data.error) {
+                        alert(data.error);
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        return;
+                    }
+
+                    if (data.isFree) {
+                        window.location.href = '/bookings/success';
+                        return;
+                    }
+
+                    var options = {
+                        "key": data.key_id,
+                        "amount": data.order.amount,
+                        "currency": data.order.currency,
+                        "name": "ExpertBook",
+                        "description": "Session Booking",
+                        "order_id": data.order.id,
+                        "handler": async function (response) {
+                            const verifyRes = await fetch('/bookings/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature,
+                                    booking_id: data.bookingId
+                                })
+                            });
+
+                            if (verifyRes.ok) {
+                                window.location.href = '/bookings/success';
+                            } else {
+                                alert("Payment Verification Failed");
+                            }
+                        },
+                        "prefill": {
+                            "name": "<%= user ? user.name : 'Guest' %>",
+                            "email": "<%= user ? user.email : 'guest@example.com' %>"
+                        },
+                        "theme": { "color": "#2563eb" }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+                }
+
+                // Reset button if not navigating away
+                if (gateway !== 'payu') {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert('An error occurred. Please try again.');
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+
+    <%- include('partials/footer') %>

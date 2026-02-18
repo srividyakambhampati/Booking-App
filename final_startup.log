@@ -1,0 +1,89 @@
+Loaded MONGODB_URI: mongodb+srv://onlinebadiUser:CLV2JTeUFkFgPhgn@cluster0.utwaxc7.mongodb.net/booking_app?appName=Cluster0
+(node:9213) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on http://localhost:3000
+MongoDB Connected
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806880388' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806880838' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806881230' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806881660' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806882357' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+[createBookingOrder] Checking availability for host 698c398ff7dc5be9c2d7db4d from Thu Feb 12 2026 19:00:00 GMT+0530 (India Standard Time) to Thu Feb 12 2026 20:00:00 GMT+0530 (India Standard Time)
+[createBookingOrder] Duration: 60 mins, Amount: NaN INR
+[createBookingOrder] Razorpay options: { amount: NaN, currency: 'INR', receipt: 'receipt_1770806883137' }
+[createBookingOrder] Error creating Razorpay order: {
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}

@@ -1,0 +1,77 @@
+Loaded MONGODB_URI: mongodb+srv://onlinebadiUser:CLV2JTeUFkFgPhgn@cluster0.utwaxc7.mongodb.net/booking_app?appName=Cluster0
+(node:8858) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Server running on http://localhost:3000
+MongoDB Connected
+[API] Fetching availability for sai-krishna-5599, date: 2026-02-11
+[API] Generating slots for date: 2026-02-11T00:00:00.000Z
+[API] Generated 0 available slots
+[API] Fetching availability for sai-krishna-5599, date: 2026-02-12
+[API] Generating slots for date: 2026-02-12T00:00:00.000Z
+[API] Generated 2 available slots
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}
+{
+  statusCode: 400,
+  error: {
+    code: 'BAD_REQUEST_ERROR',
+    description: 'amount: is required.',
+    metadata: {},
+    reason: 'input_validation_failed',
+    source: 'business',
+    step: 'payment_initiation'
+  }
+}

@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+    <div class="text-center mt-2 mb-2">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Find the Perfect Expert</h1>
+        <p class="text-light" style="font-size: 1.2rem;">Book 1:1 sessions with industry leaders, mentors, and coaches.
+        </p>
+    </div>
+
+    <div class="grid grid-3">
+        <% if (hosts && hosts.length> 0) { %>
+            <% hosts.forEach(host=> { %>
+                <div class="card">
+                    <div
+                        style="height: 150px; background: #eee; border-radius: var(--radius); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #ccc;">
+                        <%= host.name.charAt(0) %>
+                    </div>
+                    <h3>
+                        <%= host.name %>
+                    </h3>
+                    <p class="text-light text-sm">
+                        <%= host.email %>
+                    </p>
+                    <div class="mt-1 flex justify-between items-center">
+                        <span style="font-weight: 600;">
+                            <%= host.currency %>
+                                <%= host.hourlyRate %>/hr
+                        </span>
+                        <a href="/hosts/<%= host.username %>" class="btn btn-primary text-sm">Book Now</a>
+                    </div>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <div class="text-center" style="grid-column: 1/-1;">
+                            <p>No hosts available yet. Be the first!</p>
+                            <a href="/signup" class="btn btn-primary mt-1">Become a Host</a>
+                        </div>
+                        <% } %>
+    </div>
+
+    <%- include('partials/footer') %>
